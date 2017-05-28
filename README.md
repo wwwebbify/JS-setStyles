@@ -28,3 +28,10 @@ setStyles(exampleElements, styles, true);
 \<element1 style="...previousValues;color:black;background:blue;"\>
 
 \<element2 style="...previousValues;color:black;background:blue;"\>
+
+
+
+###### Notes:
+I opted to use 'setAttribute("style",...)' over the element.style.... method to allow for greater backwards compatability with IE legacy browsers.
+
+I do plan to add HTMLCollection compatability eventually
