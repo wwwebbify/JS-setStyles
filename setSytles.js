@@ -1,7 +1,7 @@
 /*
     @public
     @function setStyles
-    @description - Add styles for specific target element (will not destroy other inline styles)
+    @description - Add styles for specific target element (will optionally not destroy other inline styles)
     @param {object or array of objects} [element] - The specified element or array of elements
     @param {object} [styles] - An object of styles in CSS String format to apply to element
     @param {boolean} keep - Boolean to keep current inline styles(true) or to overwrite them(false - default)
