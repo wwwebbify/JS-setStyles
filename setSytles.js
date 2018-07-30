@@ -1,19 +1,55 @@
-/*
-    @public
-    @function setStyles
-    @description - Add styles for specific target element (will optionally not destroy other inline styles)
-    @param {object or array of objects} [element] - The specified element or array of elements
-    @param {object} [styles] - An object of styles in CSS String format to apply to element
-    @param {boolean} keep - Boolean to keep current inline styles(true) or to overwrite them(false - default)
-*/
-function setStyles(element, styles, keep = false) {
-    element = Array.isArray(element) ? element : [element];
-    element.forEach(function (element) {
-        var styleString = keep ? element.getAttribute("style") : '';
-        for (var prop in styles) {
-            styleString += prop + ':' + styles[prop] + ';'
-        }
-        element.setAttribute("style", styleString);
-    }
-    );
+/**
+  * @public
+  * @function setStyles
+  * @description - Chnages the inline styles of a target element (will optionally preserve current inline styles)
+  * @param Element (DOM Element or array of DOM Elements) elements - The specified element or array of elements you want to change
+  * @param Object styles - An object of CSS property : value pairs, using standards inline CSS syntax
+  * @param Boolean keepStyles - (default false) true will keep current inline styles. false will overwrite them
+  */
+
+function setStyles(elements, styles, keepStyles = false) {
+
+if(typeof elements === 'undefined'){
+ throw 'Parmeter 1 setStyles must be a Dom element or an Array of Dom elements!';
 }
+
+if(typeof styles !== 'object'){
+ throw 'Parameter 2 of setStyles must be an object containing 0 or more key value pairs of css properties.';
+}
+
+if(typeof keepStyles !== 'boolean'){
+throw 'Parameter 3 of setStyles is optional but must be a boolean.';
+}
+
+if(!Array.isArray(elements)){ elements = [elements]; }
+
+elements.forEach(function (element) {
+    
+ if(!(element instanceof Element)){
+  throw 'Parmeter 1 of setStyles must be a Dom element or an Array of Dom elements!';
+ }
+
+var styleObj = {};
+var styleStr = '';
+
+if(keepStyles){
+ element.getAttribute('style').split(';').forEach(function(pair){
+  if(pair === ''){
+  return;
+  }
+  var pair = pair.split(':');
+  styleObj[pair[0]] = pair[1];
+ });//END foreach pair
+}//END IF keepStyles
+
+for(var style in styles){
+styleObj[style] = styles[style];
+}
+
+for (var prop in styleObj) {
+ styleStr += prop + ':' + styleObj[prop] + '; '
+}
+
+element.setAttribute("style", styleStr);
+});//END foreach elements
+}//END setStyles
