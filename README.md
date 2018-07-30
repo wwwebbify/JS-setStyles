@@ -1,13 +1,13 @@
 # setStyles
-Sets the inline styles of an element
+Sets the inline styles of an element. Will destroy current inline styles by default OR optionally preserve the inline styles and overwrite any changed styles.
 
 
-### param {object or array of objects} [element] 
+### param elements {object or array of objects} [element(s)] 
 - The specified element or array of elements
-### param {object} [styles] 
-- An object of styles in CSS String format to apply to element
+### param styles {object} {CSS property : value}
+- An object of CSS property : value pairs in inline CSS format.
 ### param {boolean} [keep]
-- Boolean to keep current inline styles(true) or to overwrite them(false - default)
+- (defult false) true will preserve existing inline styles and overwrite re-assigned values, false will destroy them
 
 #### usage example:
 
