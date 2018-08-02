@@ -13,20 +13,23 @@ if(typeof elements === 'undefined'){
  throw 'Parmeter 1 setStyles must be a Dom element or an Array of Dom elements!';
 }
 
-if(typeof styles !== 'object'){
- throw 'Parameter 2 of setStyles must be an object containing 0 or more key value pairs of css properties.';
+if(typeof styles !== 'object' || Array.isArray(styles)){
+ throw 'Parameter 2 of setStyles must be an object containing 0 or more key value pairs of css properties. Parameter 1 is ' + Object.prototype.toString.call(styles);
 }
 
 if(typeof keepStyles !== 'boolean'){
 throw 'Parameter 3 of setStyles is optional but must be a boolean.';
 }
 
-if(!Array.isArray(elements)){ elements = [elements]; }
+if(!(elements[0] instanceof Element)){
+ elements = [].slice.call(elements[0]);
+ }
+
 
 elements.forEach(function (element) {
     
  if(!(element instanceof Element)){
-  throw 'Parmeter 1 of setStyles must be a Dom element or an Array of Dom elements!';
+  throw 'Parmeter 1 of setStyles must be a Dom element or an Array of Dom elements! Parameter 1 is ' + Object.prototype.toString.call(elements[0]);
  }
 
 var styleObj = {};
@@ -42,8 +45,8 @@ if(keepStyles){
  });//END foreach pair
 }//END IF keepStyles
 
-for(var style in styles){
-styleObj[style] = styles[style];
+for(var style in styles){ 
+ styleObj[style] = styles[style];
 }
 
 for (var prop in styleObj) {
